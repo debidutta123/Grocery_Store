@@ -17,6 +17,14 @@ function callApi(method, url, data) {
     url: url,
     data: data,
   }).done(function (msg) {
+    // If order saved successfully, redirect to home page
+    if (url === orderSaveApiUrl) {
+      alert("Order placed successfully!");
+      window.location.href = "index.html";
+      return;
+    }
+
+    // For all other operations
     window.location.reload();
   });
 }
@@ -25,8 +33,8 @@ function calculateValue() {
   var total = 0;
 
   $(".product-item").each(function (index) {
-    var qty = parseFloat($(this).find(".product-qty").val());
-    var price = parseFloat($(this).find("#product_price").val());
+    var qty = parseFloat($(this).find(".product-qty").val()) || 0;
+    var price = parseFloat($(this).find("#product_price").val()) || 0;
 
     price = price * qty;
 
